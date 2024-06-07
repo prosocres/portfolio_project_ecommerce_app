@@ -1,10 +1,10 @@
 const express = require('express')
 const app = express()
-const db = require('./db/index')
+const db = require('./db/index.js')
 const port = 3000
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World! I\'m an node-express app')
 })
 
 app.get('/')

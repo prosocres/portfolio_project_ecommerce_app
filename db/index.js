@@ -1,10 +1,9 @@
-import pg from 'pg'
-const { Pool } = pg
+const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'me',
     host: 'localhost',
     database: 'portfolio_project_ecommerce_app_db',
-    password: 'password',
+    password: '',
     port: 5432,
 })
 
@@ -24,10 +23,6 @@ const getCustomers = (request, response) => {
       }
       response.status(200).json(results.rows)
     })
-}
-
-export const query = (text, params, callback) => {
-    return pool.query(text, params, callback)
 }
 
 module.exports = {
