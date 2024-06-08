@@ -10,6 +10,8 @@ app.get('/', (req, res) => {
 app.get('/')
 
 app.get('/customers', db.getCustomers)
+app.get('/customers/:id', db.getCustomerById)
+app.post('/customers', db.createCustomer)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
