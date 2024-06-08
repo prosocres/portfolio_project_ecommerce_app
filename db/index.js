@@ -30,11 +30,11 @@ const getCustomerById = (request, response) => {
 const createCustomer = (request, response) => {
     const { first_name, last_name, email } = request.body
   
-    pool.query('INSERT INTO customer (first_name, last_name, email) VALUES ($1, $2, $3) RETURNING *', [first_name, last_name, email], (error, results) => {
+    pool.query('INSERT INTO customers (first_name, last_name, email) VALUES ($1, $2, $3) RETURNING *', [first_name, last_name, email], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`User added with ID: ${results.rows[0].id}`)
+      response.status(201).send(`Customer added with ID: ${results.rows[0].id}`)
     })
 }
 
