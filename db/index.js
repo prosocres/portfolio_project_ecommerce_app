@@ -38,6 +38,16 @@ const createCustomer = (request, response) => {
     })
 }
 
+const updateCustomer = ""
+
+const deleteCustomer = ""
+
+const getProducts = ""
+
+const getCarts = ""
+
+const getOrders = ""
+
 module.exports = {
     getCustomers,
     getCustomerById,
