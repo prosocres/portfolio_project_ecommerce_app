@@ -1,10 +1,10 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'me',
+    user: 'deltaswift',
     host: 'localhost',
-    database: 'portfolio_project_ecommerce_app_db',
+    database: 'codecad_ecomm_proj_1',
     password: '',
-    port: 5432,
+    port: 63333,
 })
 
 const getCustomers = (request, response) => {
@@ -28,9 +28,9 @@ const getCustomerById = (request, response) => {
 }
 
 const createCustomer = (request, response) => {
-    const { first_name, last_name, email } = request.body
+    const { id, first_name, last_name, email } = request.body
   
-    pool.query('INSERT INTO customers (first_name, last_name, email) VALUES ($1, $2, $3) RETURNING *', [first_name, last_name, email], (error, results) => {
+    pool.query('INSERT INTO customers (id, first_name, last_name, email) VALUES ($1, $2, $3, $4) RETURNING *', [id, first_name, last_name, email], (error, results) => {
       if (error) {
         throw error
       }
