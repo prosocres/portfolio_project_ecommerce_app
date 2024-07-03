@@ -7,7 +7,7 @@ const pool = new Pool({
     port: 63333,
 })
 
-const getCustomers = (request, response) => {
+const getUsers = (request, response) => {
     pool.query('SELECT * FROM customers ORDER BY id ASC', (error, results) => {
       if (error) {
         throw error
@@ -16,7 +16,7 @@ const getCustomers = (request, response) => {
     })
 }
 
-const getCustomerById = (request, response) => {
+const getUserById = (request, response) => {
     const id = parseInt(request.params.id)
 
     pool.query('SELECT * FROM customers WHERE id = $1', [id], (error, results) => {
@@ -27,7 +27,21 @@ const getCustomerById = (request, response) => {
     })
 }
 
-const createCustomer = (request, response) => {
+const updateUser = (request, response) => {
+    const {id, first_name, last_name, email} = request.body  
+
+    const text = `UPDATE customers SET first_name=$2, last_name=$3, email=$4 WHERE id=$1 RETURNING *`
+    const values = [id, first_name, last_name, email]
+  
+    pool.query(text, values, (error, results) => {
+      if(error) {
+        throw error
+      }
+      response.status(200).json(results.rows)
+    })
+}
+
+const createUser = (request, response) => {
     const { id, first_name, last_name, email } = request.body
   
     pool.query('INSERT INTO customers (id, first_name, last_name, email) VALUES ($1, $2, $3, $4) RETURNING *', [id, first_name, last_name, email], (error, results) => {
@@ -38,9 +52,9 @@ const createCustomer = (request, response) => {
     })
 }
 
-const updateCustomer = ""
 
-const deleteCustomer = ""
+
+const deleteUser = ""
 
 const getProducts = ""
 
@@ -49,7 +63,8 @@ const getCarts = ""
 const getOrders = ""
 
 module.exports = {
-    getCustomers,
-    getCustomerById,
-    createCustomer
+    getUsers,
+    getUserById,
+    updateUser,
+    createUser
 }
