@@ -8,7 +8,7 @@ const pool = new Pool({
 })
 
 const getUsers = (request, response) => {
-    pool.query('SELECT * FROM customers ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
       if (error) {
         throw error
       }
@@ -19,7 +19,7 @@ const getUsers = (request, response) => {
 const getUserById = (request, response) => {
     const id = parseInt(request.params.id)
 
-    pool.query('SELECT * FROM customers WHERE id = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
         if (error) {
         throw error
         }
@@ -30,7 +30,7 @@ const getUserById = (request, response) => {
 const updateUser = (request, response) => {
     const {id, first_name, last_name, email} = request.body  
 
-    const text = `UPDATE customers SET first_name=$2, last_name=$3, email=$4 WHERE id=$1 RETURNING *`
+    const text = `UPDATE users SET first_name=$2, last_name=$3, email=$4 WHERE id=$1 RETURNING *`
     const values = [id, first_name, last_name, email]
   
     pool.query(text, values, (error, results) => {
@@ -44,11 +44,11 @@ const updateUser = (request, response) => {
 const createUser = (request, response) => {
     const { id, first_name, last_name, email } = request.body
   
-    pool.query('INSERT INTO customers (id, first_name, last_name, email) VALUES ($1, $2, $3, $4) RETURNING *', [id, first_name, last_name, email], (error, results) => {
+    pool.query('INSERT INTO users (id, first_name, last_name, email) VALUES ($1, $2, $3, $4) RETURNING *', [id, first_name, last_name, email], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`Customer added with ID: ${results.rows[0].id}`)
+      response.status(201).send(`User added with ID: ${results.rows[0].id}`)
     })
 }
 
