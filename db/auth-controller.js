@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const {createUser} = require('index.js')
+const {createUser} = require('./index.js')
 
 
 const getPwdHash = async (pwd) => {
