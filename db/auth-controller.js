@@ -9,7 +9,7 @@ const getPwdHash = async (pwd) => {
 
 const signupUser = async (req, res, next) => {
 
-    const { email, password, first_name, last_name} = req.body
+    const { email, password, first_name, last_name } = req.body
       //Check if active user with this email exists
       //const userDb = await fetchUserByEmail(email)
       //if (userDb?.active === true) {
@@ -17,6 +17,7 @@ const signupUser = async (req, res, next) => {
       //}
 
       const pwd_hash = await getPwdHash(password)
+      
       const user = {
         email,
         first_name,
@@ -26,8 +27,10 @@ const signupUser = async (req, res, next) => {
       }
 
       const newUser = await createUser(user)
-      const newCart = await createCart(newUser.id)
-      res.status(201).json({userId: newUser.id, cartId: newCart.id})
+      //const newCart = await createCart(newUser.id)
+      res.status(201).json({userId: newUser.id
+        //, cartId: newCart.id
+        })
       next()
 }
 

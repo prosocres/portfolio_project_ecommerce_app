@@ -41,17 +41,17 @@ const updateUser = (request, response) => {
     })
 }
 
-const createUser = (request, response) => {
-    const { id, first_name, last_name, email } = request.body
-  
-    pool.query('INSERT INTO users (id, first_name, last_name, email) VALUES ($1, $2, $3, $4) RETURNING *', [id, first_name, last_name, email], (error, results) => {
-      if (error) {
+const createUser = async ({email, first_name, last_name, pwd_hash}) => {
+    const text = `INSERT INTO users (email, first_name, last_name, pwd_hash) VALUES ($1, $2, $3, $4) RETURNING *`
+    const values = [email, first_name, last_name, pwd_hash]
+
+    const res = await pool.query(text, values, (error, results) => {
+      if(error) {
         throw error
       }
-      response.status(201).send(`User added with ID: ${results.rows[0].id}`)
+    response.status(201).send(`User added with ID: ${res.rows[0].id}`)
     })
-}
-
+  }
 
 
 const deleteUser = ""
