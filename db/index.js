@@ -45,11 +45,11 @@ const createUser = async ({email, first_name, last_name, pwd_hash}) => {
     const text = `INSERT INTO users (email, first_name, last_name, pwd_hash) VALUES ($1, $2, $3, $4) RETURNING *`
     const values = [email, first_name, last_name, pwd_hash]
 
-    const res = await pool.query(text, values, (error, results) => {
+    await pool.query(text, values, (error, response) => {
       if(error) {
         throw error
       }
-    response.status(201).send(`User added with ID: ${res.rows[0].id}`)
+    response.status(201).send(`User added with ID: ${response.rows[0].id}`)
     })
   }
 

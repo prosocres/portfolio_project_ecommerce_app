@@ -28,9 +28,8 @@ const signupUser = async (req, res, next) => {
 
       const newUser = await createUser(user)
       //const newCart = await createCart(newUser.id)
-      res.status(201).json({userId: newUser.id
-        //, cartId: newCart.id
-        })
+      res.status(201).json({userId: newUser.id})
+        // cartId: newCart.id
       next()
 }
 
