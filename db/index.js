@@ -42,7 +42,7 @@ const updateUser = (request, response) => {
 }
 
 const createUser = async ({email, first_name, last_name, pwd_hash, user_role}) => {
-    const text = `INSERT INTO users (email, first_name, last_name, pwd_hash) VALUES ($1, $2, $3, $4) RETURNING *`
+    const text = `INSERT INTO users (email, first_name, last_name, pwd_hash, user_role) VALUES ($1, $2, $3, $4, $5) RETURNING *`
     const values = [email, first_name, last_name, pwd_hash, user_role]
 
     await pool.query(text, values, (error, response) => {
