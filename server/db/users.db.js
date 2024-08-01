@@ -36,7 +36,7 @@ const updateUser = (request, response) => {
     })
 }
 
-const createUser = async ({email, first_name, last_name, pwd_hash, user_role}) => {
+const createUserDb = async ({email, first_name, last_name, pwd_hash, user_role}) => {
     const text = `INSERT INTO users (email, first_name, last_name, pwd_hash, user_role) VALUES ($1, $2, $3, $4, $5) RETURNING *`
     const values = [email, first_name, last_name, pwd_hash, user_role]
 
@@ -63,6 +63,6 @@ module.exports = {
     getUsers,
     getUserById,
     updateUser,
-    createUser,
+    createUserDb,
     fetchUserByEmailDb
 }

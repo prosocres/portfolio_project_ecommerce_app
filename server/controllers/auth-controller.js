@@ -1,6 +1,7 @@
+const { usersService, cartsService } = require('../services')
 const bcrypt = require('bcrypt')
-const {createUser} = require('../db/users.db.js')
-const {fetchUserByEmail} = require('../services/user.service.js')
+const { createUser, fetchUserByEmail } = usersService
+const { createCart } = cartsService
 
 
 const getPwdHash = async (pwd) => {

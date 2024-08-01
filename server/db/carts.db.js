@@ -20,3 +20,8 @@ const createCartDb = async (userId) => {
     const res = await pool.query(text, values)
     return res.rows[0]
 }
+
+module.exports = {
+    fetchCartByIdDb,
+    createCartDb
+}
