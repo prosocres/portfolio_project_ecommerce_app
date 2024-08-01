@@ -1,3 +1,5 @@
+const { response } = require('express')
+
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'deltaswift',
@@ -45,14 +47,16 @@ const createUser = async ({email, first_name, last_name, pwd_hash, user_role}) =
     const text = `INSERT INTO users (email, first_name, last_name, pwd_hash, user_role) VALUES ($1, $2, $3, $4, $5) RETURNING *`
     const values = [email, first_name, last_name, pwd_hash, user_role]
 
-    await pool.query(text, values, (error, results) => {
-      if(error) {
-        throw error
-      }
-      response.status(201).send(`User added with ID: ${results.rows[0].id}`)
-    })
-  }
+    const res = await pool.query(text, values)
+    console.log(res.rows[0])
+    return res.rows[0]
+}
 
+const fetchUserByEmailDb = async (email) => {
+  const res = await pool.query(`SELECT users.id, email, carts.id AS cart_id, pwd_hash, user_role, active
+                                FROM users INNER JOIN carts ON users.id = carts.user_id WHERE email = $1 AND active = true`, [email])
+  return res.rows[0]
+}
 
 const deleteUser = ""
 
@@ -66,5 +70,6 @@ module.exports = {
     getUsers,
     getUserById,
     updateUser,
-    createUser
+    createUser,
+    fetchUserByEmailDb
 }
