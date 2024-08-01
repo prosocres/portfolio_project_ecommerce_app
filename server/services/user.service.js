@@ -1,4 +1,4 @@
-const {fetchUserByEmailDb} = require('./index')
+const {fetchUserByEmailDb} = require('../db/users.db')
 
 const fetchUserByEmail = async (email) => {
     return await fetchUserByEmailDb(email)

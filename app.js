@@ -1,9 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const db = require('./db/index.js')
+const db = require('./server/db/users.db.js')
 const port = 3000
-const {signupUser} = require('./db/auth-controller.js')
+const {signupUser} = require('./server/controllers/auth-controller.js')
 
 app.use(bodyParser.json())
 app.use(

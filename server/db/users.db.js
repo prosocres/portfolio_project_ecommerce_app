@@ -1,13 +1,6 @@
 const { response } = require('express')
 
-const Pool = require('pg').Pool
-const pool = new Pool({
-    user: 'deltaswift',
-    host: 'localhost',
-    database: 'codecad_ecomm_proj_1',
-    password: '',
-    port: 63333,
-})
+const pool = require('config')
 
 const getUsers = (request, response) => {
     pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
